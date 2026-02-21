@@ -2,12 +2,28 @@ print("Program started")
 def main():
     print("=== Monthly Expense Calculator ===")
 
-    income = float(input("Enter your monthly income:  "))
-    rent = float(input("Enter your monthly rent:  "))
-    food = float(input("Enter your food expenses:  "))
-    other = float(input("Enter your other expenses:  "))
+    def get_float_input(prompt):
+        while True:
+            try:
+                return float(input(prompt))
+            except ValueError:
+                print("Please enter a valid number...")
 
-    total_expenses = rent + food + other
+    income = get_float_input("Enter your monthly income:  ")
+
+    expenses = []
+
+    while True:
+        category = input("Enter expense category (or type 'done' to finish): ")
+
+        if category.lower() == "done":
+            break
+
+        ammount = get_float_input(f"Enter amount for {category}: ")
+        expenses.append((category, ammount))
+
+    total_expenses = sum(ammount for _, ammount in expenses)
+
     remaining = income - total_expenses
 
     print("\n=== Summary ===")
