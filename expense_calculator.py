@@ -1,3 +1,4 @@
+from expense_model import Expense
 print("Program started")
 def main():
     print("=== Monthly Expense Calculator ===")
@@ -20,14 +21,15 @@ def main():
             break
 
         ammount = get_float_input(f"Enter amount for {category}: ")
-        expenses.append((category, ammount))
+        expenses.append(Expense(category, ammount))
 
-    total_expenses = sum(ammount for _, ammount in expenses)
+    total_expenses = sum(expense.amount for expense in expenses)
 
     remaining = income - total_expenses
 
     print("\n=== Summary ===")
-    print(f"Total Expenses: ${total_expenses:.2f}")
+    for expense in expenses:
+        print(expense.display())
     print(f"Remaining Balance: ${remaining:.2f}")
     if remaining < 0:
         print("Warning: You are overspending.")
