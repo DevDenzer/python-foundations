@@ -1,5 +1,5 @@
 from expense_model import Expense
-from database import create_table, insert_expense, get_total_expenses, get_all_expenses
+from database import create_table, insert_expense, get_total_expenses, get_all_expenses, delete_expense
 print("Program started")
 def add_expense():
     while True:
@@ -28,8 +28,18 @@ def view_all_expenses():
         print("No expenses found.")
         return
     
-    for category, amount in expenses:
-        print(f"{category}: ${amount:.2f}")
+    for exp_id, category, amount in expenses:
+        print(f"[{exp_id}] {category}: ${amount:.2f}")
+
+def delete_expense_cli():
+    view_all_expenses()
+
+    try:
+        expense_id = int(input("Enter the ID of the expense to delete: "))
+        delete_expense(expense_id)
+        print("Expense deleted.\n")
+    except ValueError:
+        print("Invalid ID. Please retry.")
 
 def view_total_expenses():
     total = get_total_expenses()
@@ -47,7 +57,8 @@ def main():
         print("1. Add Expense")
         print("2. View All Expenses")
         print("3. View Remaining Balance")
-        print("4. Exit")
+        print("4. Delete Expense")
+        print("5. Exit")
 
         choice = input("Choose an option: ")
 
@@ -60,11 +71,13 @@ def main():
             remaining = income - total
             print(f"\nRemaining Balance: ${remaining:.2f}")
         elif choice == "4":
+            delete_expense_cli()
+        elif choice == "5":
             print("\n=== Summary (from Database) ===")
             all_expenses = get_all_expenses()
             print(f"Monthly Income: ${income:.2f}")
 
-            for category, amount in all_expenses:
+            for _, category, amount in all_expenses:
                 print(f"{category}: ${amount:.2f}")
             print(f"Remaining Balance: ${remaining:.2f}")
             if remaining < 0:

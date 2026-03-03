@@ -30,6 +30,14 @@ def insert_expense(category, amount):
     conn.commit()
     conn.close()
 
+def delete_expense(expense_id):
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute("DELETE FROM expenses WHERE id = ?", (expense_id,))
+    conn.commit()
+    conn.close()
+
 def get_total_expenses():
     conn = get_connection()
     cursor = conn.cursor()
@@ -45,7 +53,7 @@ def get_all_expenses():
     conn = get_connection()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT category, amount FROM expenses")
+    cursor.execute("SELECT id, category, amount FROM expenses")
     rows = cursor.fetchall()
 
     conn.close()
