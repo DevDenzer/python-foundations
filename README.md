@@ -9,6 +9,7 @@ This repository contains my foundational python practice as well as general deve
 - Handles income and multiple expense categories
 - Calculates remaining balance
 - Uses formatted output
+- Full CRUD operations
 
 ### SQL Practice
 - Created SQLite database
@@ -19,6 +20,7 @@ This repository contains my foundational python practice as well as general deve
 - day1_hello.py - basic testing script
 - expense_calculator.py - basic expense calculator
 - sql_practice.py - basic SQLite database
+- database.py - SQL database used in expense calculator
 
 ### Goals
 - Strengthen Python fundamentals
