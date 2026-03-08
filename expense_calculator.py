@@ -1,6 +1,28 @@
 from expense_model import Expense
 from database import create_table, insert_expense, get_total_expenses, get_all_expenses, delete_expense, update_expense
 print("Program started")
+
+def get_float_input(prompt):
+        while True:
+            try:
+                value = float(input(prompt))
+
+                if value < 0:
+                    print("Please enter a positive number...")
+                    continue
+
+                return value
+            
+            except ValueError:
+                print("Please enter a valid number...")
+
+def get_int_input(prompt):
+    while True:
+        try:
+            return int(input(prompt))
+        except ValueError:
+            print("Please enter a valid number...")
+
 def add_expense():
     while True:
         category = input("Enter expense category (or type 'done' to finish): ")
@@ -11,13 +33,6 @@ def add_expense():
         amount = get_float_input(f"Enter amount for {category}: ")
         insert_expense(category, amount)
         print("Expense added.\n")
-
-def get_float_input(prompt):
-        while True:
-            try:
-                return float(input(prompt))
-            except ValueError:
-                print("Please enter a valid number...")
 
 def view_all_expenses():
     print("\n=== All Expenses ===")
@@ -35,7 +50,7 @@ def delete_expense_cli():
     view_all_expenses()
 
     try:
-        expense_id = int(input("Enter the ID of the expense to delete: "))
+        expense_id = get_int_input("Enter the ID of the expense to delete: ")
         delete_expense(expense_id)
         print("Expense deleted.\n")
     except ValueError:
@@ -49,9 +64,9 @@ def update_expense_cli():
     view_all_expenses()
 
     try:
-        expense_id = int(input("Enter the ID of the expense you would like to update: "))
+        expense_id = get_int_input("Enter the ID of the expense you would like to update: ")
         new_category = input("Enter the new category: ")
-        new_amount = float(input("Enter the new amount: "))
+        new_amount = get_float_input("Enter the new amount: ")
 
         update_expense(expense_id, new_category, new_amount)
 
@@ -97,7 +112,12 @@ def main():
 
         elif choice == "6":
             print("\n=== Summary (from Database) ===")
+
             all_expenses = get_all_expenses()
+
+            total = get_total_expenses()
+            remaining = income - total
+            
             print(f"Monthly Income: ${income:.2f}")
 
             for _, category, amount in all_expenses:
