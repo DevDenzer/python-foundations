@@ -4,6 +4,14 @@ This Python backend project began as a CLI expense calculator and later expanded
 
 This application allows users to create, view, update, and delete expenses while storing data in a SQLite database
 
+## Live API
+
+Base URL:
+https://expense-tracker-api-chs0.onrender.com/
+
+Interactive Docs:
+https://expense-tracker-api-chs0.onrender.com/docs
+
 ## Features
 - CLI-based monthly expense calculator
 - Handles income and multiple expense categories
@@ -36,6 +44,18 @@ python -m uvicorn api:app --reload
 
 - Open the interactive API docs:
 https://127.0.0.1:800/docs
+
+## Example Request
+
+### Add Expense
+
+POST /expenses
+
+Request Body:
+{
+    "category": "Food",
+    "amount": 45.50
+}
 
 ### Project Files
 - api.py: FastAPI backend
